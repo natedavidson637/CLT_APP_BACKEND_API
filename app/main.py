@@ -1,7 +1,5 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app import models
-from app.database import Base, engine
 
 # Import routers
 from .routers import (
@@ -22,7 +20,6 @@ app = FastAPI(
     description="Backend powering Charlotte-wide events, clubs, chat, feed, payments, and discovery.",
     version="1.0.0"
 )
-Base.metadata.create_all(bind=engine)
 
 # ------------------------------------------------------------
 # CORS (Flutter + Web)
