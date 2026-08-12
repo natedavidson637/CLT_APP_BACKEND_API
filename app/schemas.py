@@ -16,8 +16,16 @@ class UserBase(BaseModel):
     profile_visibility: Optional[str] = "public"
 
 
-class UserCreate(UserBase):
+class UserCreate(BaseModel):
+    name: str
+    email: str
     password: str
+    age: int
+    gender: Optional[str] = None
+    interests: list[str] = []
+    profile_visibility: str = "public"
+    bio: Optional[str] = None
+
 
 
 class UserLogin(BaseModel):
