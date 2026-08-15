@@ -4,6 +4,9 @@ from dotenv import load_dotenv
 import os
 import time
 
+# Load .env if running locally
+if os.path.exists(".env"):
+    load_dotenv()
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 
@@ -15,11 +18,19 @@ engine = None
 for i in range(10):
     try:
         print(f"Connecting to database... attempt {i+1}/10")
-        engine = create_engine(DATABASE_URL)
+
+        # ⭐ ADD TIMEOUT HERE — this is the fix
+        engine = create_engine(
+            DATABASE_URL,
+            connect_args={"connect_timeout": 5}
+        )
+
         conn = engine.connect()
         conn.close()
+
         print("Database connection successful.")
         break
+
     except Exception as e:
         print(f"Database not ready, retrying in 2 seconds... ({e})")
         time.sleep(2)
