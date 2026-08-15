@@ -58,3 +58,8 @@ app.include_router(safety.router)
 @app.get("/")
 def root():
     return {"message": "Charlotte Core API is running"}
+
+@app.options("/{full_path:path}")
+def preflight_handler():
+    return {}
+
