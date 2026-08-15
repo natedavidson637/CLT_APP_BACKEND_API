@@ -42,8 +42,8 @@ class User(BaseModel):
     bio: Optional[str]
     interests: Optional[List[str]]
     profile_visibility: Optional[str]
-    created_at: datetime
-    updated_at: datetime
+    created_at: Optional[datetime]
+    updated_at: Optional[datetime]
 
     class Config:
         from_attributes = True
