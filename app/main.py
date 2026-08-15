@@ -26,7 +26,12 @@ app = FastAPI(
 # ------------------------------------------------------------
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # You can restrict later
+    allow_origins=[
+        "http://localhost:8080",
+        "https://kindred-roots-api.lovable.app",
+        "https://*.lovable.app",
+        "https://web-production-6ac00e.up.railway.app"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
