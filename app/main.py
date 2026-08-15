@@ -1,7 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-# Import routers
 from .routers import (
     auth,
     users,
@@ -21,9 +20,6 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# ------------------------------------------------------------
-# CORS (Flutter + Web)
-# ------------------------------------------------------------
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -37,9 +33,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# ------------------------------------------------------------
-# ROUTERS
-# ------------------------------------------------------------
 app.include_router(auth.router)
 app.include_router(users.router)
 app.include_router(events.router)
@@ -51,10 +44,6 @@ app.include_router(feed.router)
 app.include_router(reviews.router)
 app.include_router(safety.router)
 
-
-# ------------------------------------------------------------
-# HEALTH CHECK
-# ------------------------------------------------------------
 @app.get("/")
 def root():
     return {"message": "Charlotte Core API is running"}
@@ -62,4 +51,3 @@ def root():
 @app.options("/{full_path:path}")
 def preflight_handler():
     return {}
-
