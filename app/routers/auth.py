@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from ..database import SessionLocal
 from .. import models, schemas
 from ..utils.auth import hash_password, verify_password, create_token
+from datetime import datetime
 
 router = APIRouter(prefix="/auth", tags=["Auth"])
 
@@ -30,7 +31,9 @@ def register(user: schemas.UserCreate, db: Session = Depends(get_db)):
         gender=user.gender,
         bio=user.bio,
         interests=user.interests,
-        profile_visibility=user.profile_visibility
+        profile_visibility=user.profile_visibility,
+        created_at = datetime.utcnow(),
+        updated_at = datetime.utcnow()
     )
 
     db.add(new_user)

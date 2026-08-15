@@ -20,10 +20,10 @@ class UserCreate(BaseModel):
     name: str
     email: str
     password: str
-    age: int
+    age: Optional[int]
     gender: Optional[str] = None
-    interests: list[str] = []
-    profile_visibility: str = "public"
+    interests: Optional[list[str]] = []
+    profile_visibility: Optional[str] = "public"
     bio: Optional[str] = None
 
 
