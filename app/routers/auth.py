@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy.orm import Session
 from ..database import SessionLocal
 from .. import models, schemas
@@ -6,6 +6,10 @@ from ..utils.auth import hash_password, verify_password, create_token
 from datetime import datetime
 
 router = APIRouter(prefix="/auth", tags=["Auth"])
+
+@router.options("/register")
+def register_options():
+    return {}
 
 
 def get_db():
@@ -17,7 +21,15 @@ def get_db():
 
 
 @router.post("/register", response_model=schemas.User)
-def register(user: schemas.UserCreate, db: Session = Depends(get_db)):
+async def register(request: Request, user: schemas.UserCreate = None, db: Session = Depends(get_db)):
+    # Handle OPTIONS preflight
+    if request.method == "OPTIONS":
+        return {}
+
+    # Validate JSON body for POST
+    if user is None:
+        raise HTTPException(status_code=400, detail="Missing user data")
+
     existing = db.query(models.User).filter(models.User.email == user.email).first()
     if existing:
         raise HTTPException(status_code=400, detail="Email already registered")
@@ -32,8 +44,8 @@ def register(user: schemas.UserCreate, db: Session = Depends(get_db)):
         bio=user.bio,
         interests=user.interests,
         profile_visibility=user.profile_visibility,
-        created_at = datetime.utcnow(),
-        updated_at = datetime.utcnow()
+        created_at=datetime.utcnow(),
+        updated_at=datetime.utcnow()
     )
 
     db.add(new_user)
