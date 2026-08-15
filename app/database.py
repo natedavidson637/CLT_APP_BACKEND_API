@@ -41,4 +41,31 @@ if engine is None:
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
+
+from app.models import (
+    User,
+    Follower,
+    UserSettings,
+    Event,
+    EventRSVP,
+    EventMedia,
+    EventAnalytics,
+    Payment,
+    Ticket,
+    EventChatRoom,
+    EventChatMessage,
+    EventChatAdmin,
+    Club,
+    ClubMember,
+    ClubEvent,
+    FeedPost,
+    FeedLike,
+    FeedView,
+    FeedComment,
+    TrendingScore,
+    Review,
+    Report,
+    BlockedUser
+)
+
 Base.metadata.create_all(bind=engine)
