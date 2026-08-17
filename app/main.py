@@ -14,7 +14,6 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "https://kindred-roots-api.lovable.app",
-        "https://*.lovable.app",
         "https://web-production-6ac00e.up.railway.app",
         "http://localhost:8080"
     ],
@@ -32,6 +31,7 @@ app.add_middleware(
         "Pragma"
     ],
 )
+
 
 # ------------------------------------------------------------
 # NOW IMPORT ROUTERS
