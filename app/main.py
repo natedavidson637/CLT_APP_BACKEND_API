@@ -19,10 +19,19 @@ app.add_middleware(
         "http://localhost:8080"
     ],
     allow_credentials=True,
-    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allow_headers=["Content-Type", "Authorization"],
+    allow_methods=["*"],
+    allow_headers=[
+        "Content-Type",
+        "Authorization",
+        "Accept",
+        "Accept-Language",
+        "Accept-Encoding",
+        "Origin",
+        "User-Agent",
+        "Cache-Control",
+        "Pragma"
+    ],
 )
-
 
 # ------------------------------------------------------------
 # NOW IMPORT ROUTERS
@@ -61,6 +70,3 @@ app.include_router(safety.router)
 def root():
     return {"message": "Charlotte Core API is running"}
 
-@app.options("/{full_path:path}")
-def preflight_handler():
-    return {}
