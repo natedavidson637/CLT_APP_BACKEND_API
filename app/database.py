@@ -5,8 +5,7 @@ import os
 import time
 
 # Load .env if running locally
-if os.path.exists(".env"):
-    load_dotenv()
+load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), ".env"))
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 
