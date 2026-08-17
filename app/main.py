@@ -14,6 +14,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "https://kindred-roots-api.lovable.app",
+        "https://preview--grateful-light-api.lovable.app",
         "https://web-production-6ac00e.up.railway.app",
         "http://localhost:8080"
     ],
