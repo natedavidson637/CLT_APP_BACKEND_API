@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Response
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(
@@ -32,6 +32,17 @@ app.add_middleware(
         "Pragma"
     ],
 )
+
+@app.options("/{path:path}")
+async def global_options(path: str):
+    return Response(
+        status_code=200,
+        headers={
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+            "Access-Control-Allow-Headers": "Content-Type, Authorization, Accept"
+        }
+    )
 
 
 # ------------------------------------------------------------
