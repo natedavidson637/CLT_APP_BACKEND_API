@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, Request
+from fastapi import APIRouter, Depends, HTTPException, Request, Response
 from sqlalchemy.orm import Session
 from ..database import SessionLocal
 from .. import models, schemas
@@ -6,6 +6,10 @@ from ..utils.auth import hash_password, verify_password, create_token
 from datetime import datetime
 
 router = APIRouter(prefix="/auth", tags=["Auth"])
+
+@router.options("/register")
+async def register_options():
+    return Response(status_code=200)
 
 
 def get_db():
