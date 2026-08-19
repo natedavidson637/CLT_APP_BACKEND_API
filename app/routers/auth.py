@@ -17,12 +17,7 @@ def get_db():
 
 
 @router.post("/register", response_model=schemas.User)
-async def register(request: Request, user: schemas.UserCreate = None, db: Session = Depends(get_db)):
-
-    # Validate JSON body for POST
-    if user is None:
-        raise HTTPException(status_code=400, detail="Missing user data")
-
+async def register(user: schemas.UserCreate, db: Session = Depends(get_db)):
     existing = db.query(models.User).filter(models.User.email == user.email).first()
     if existing:
         raise HTTPException(status_code=400, detail="Email already registered")
