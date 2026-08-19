@@ -7,10 +7,6 @@ from datetime import datetime
 
 router = APIRouter(prefix="/auth", tags=["Auth"])
 
-@router.options("/register")
-def register_options():
-    return {}
-
 
 def get_db():
     db = SessionLocal()
@@ -22,9 +18,6 @@ def get_db():
 
 @router.post("/register", response_model=schemas.User)
 async def register(request: Request, user: schemas.UserCreate = None, db: Session = Depends(get_db)):
-    # Handle OPTIONS preflight
-    if request.method == "OPTIONS":
-        return {}
 
     # Validate JSON body for POST
     if user is None:
@@ -65,8 +58,6 @@ def login(credentials: schemas.UserLogin, db: Session = Depends(get_db)):
 
     token = create_token({"user_id": user.id})
     return {"access_token": token, "token_type": "bearer"}
-
-
 
 
 @router.post("/{user_id}/token")
