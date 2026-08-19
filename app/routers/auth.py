@@ -7,9 +7,17 @@ from datetime import datetime
 
 router = APIRouter(prefix="/auth", tags=["Auth"])
 
+
 @router.options("/register")
 async def register_options():
-    return Response(status_code=200)
+    return Response(
+        status_code=200,
+        headers={
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "POST, OPTIONS",
+            "Access-Control-Allow-Headers": "Content-Type, Authorization"
+        }
+    )
 
 
 def get_db():
